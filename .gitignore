@@ -1,55 +1,144 @@
-# Prerequisites
-*.d
+# TAV .gitignore
 
-# Object files
+# =============================================================================
+# C / C++
+# =============================================================================
 *.o
-*.ko
 *.obj
-*.elf
-
-# Linker output
-*.ilk
-*.map
-*.exp
-
-# Precompiled Headers
-*.gch
-*.pch
-
-# Libraries
-*.lib
-*.a
-*.la
-*.lo
-
-# Shared objects (inc. Windows DLLs)
+*.exe
 *.dll
 *.so
-*.so.*
 *.dylib
-
-# Executables
-*.exe
+*.a
+*.lib
 *.out
 *.app
-*.i*86
-*.x86_64
+
+# Build directories
+build/
+out/
+bin/
+lib/
+
+# =============================================================================
+# Rust
+# =============================================================================
+target/
+Cargo.lock
+**/*.rs.bk
+
+# =============================================================================
+# JavaScript / Node.js
+# =============================================================================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+
+# =============================================================================
+# Arduino / ESP32
+# =============================================================================
+*.elf
+*.bin
 *.hex
+.pio/
+.pioenvs/
+.piolibdeps/
 
-# Debug files
-*.dSYM/
-*.su
-*.idb
-*.pdb
+# =============================================================================
+# IDEs and Editors
+# =============================================================================
+# Visual Studio Code
+.vscode/
+*.code-workspace
 
-# Kernel Module Compile Results
-*.mod*
-*.cmd
-.tmp_versions/
-modules.order
-Module.symvers
-Mkfile.old
-dkms.conf
+# JetBrains (CLion, IntelliJ, etc.)
+.idea/
+*.iml
 
-# debug information files
-*.dwo
+# Visual Studio
+.vs/
+*.vcxproj.user
+*.suo
+*.user
+
+# Vim
+*.swp
+*.swo
+*~
+
+# Emacs
+*~
+\#*\#
+.#*
+
+# Sublime Text
+*.sublime-workspace
+*.sublime-project
+
+# =============================================================================
+# Operating System
+# =============================================================================
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux
+*~
+
+# =============================================================================
+# Testing and Coverage
+# =============================================================================
+coverage/
+*.gcov
+*.gcda
+*.gcno
+.nyc_output/
+lcov.info
+
+# =============================================================================
+# Temporary Files
+# =============================================================================
+*.tmp
+*.temp
+*.log
+*.bak
+*.backup
+
+# =============================================================================
+# Security - Never commit these!
+# =============================================================================
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+secrets.*
+.env
+.env.local
+.env.*.local
+
+# =============================================================================
+# Documentation Build
+# =============================================================================
+docs/_build/
+site/
+
+# =============================================================================
+# Project Specific
+# =============================================================================
+# Test output
+test_output/
+benchmark_results/
+
+# Generated test vectors (keep the committed ones)
+generated_vectors/
