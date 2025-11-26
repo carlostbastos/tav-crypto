@@ -1,4 +1,9 @@
 /*
+ * TAV Clock Cryptography v9.1
+ * Copyright (C) 2025 Carlos Alberto Terencio de Bastos
+ * License: AGPL-3.0 - https://github.com/caterencio/tav-crypto
+ */
+/*
  * TAV CRYPTO - Exemplo Arduino/ESP32
  * ===================================
  * 
