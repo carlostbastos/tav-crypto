@@ -1,3 +1,9 @@
+/*
+ * TAV Clock Cryptography v9.1
+ * Copyright (C) 2025 Carlos Alberto Terencio de Bastos
+ * License: AGPL-3.0 - https://github.com/caterencio/tav-crypto
+ */
+
 /**
  * TAV Clock Cryptography V9.1 - JavaScript Implementation
  * ========================================================
@@ -5,8 +11,6 @@
  * Sistema criptográfico baseado em física de processador.
  * Operações: apenas XOR, AND, OR, ROT (portas lógicas)
  * 
- * @license MIT
- * @version 9.1.0
  */
 
 // ============================================================================
