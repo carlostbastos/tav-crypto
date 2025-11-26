@@ -1,0 +1,45 @@
+cff-version: 1.2.0
+title: "TAV Clock Cryptography"
+message: "If you use this software, please cite it as below."
+type: software
+authors:
+  - family-names: "Bastos"
+    given-names: "Carlos Alberto Terencio de"
+    email: "caterencio@yahoo.com.br"
+    orcid: ""
+repository-code: "https://github.com/carlostbastos/tav-crypto"
+url: "https://github.com/carlostbastos/tav-crypto"
+abstract: >-
+  TAV (Transactional Asynchronous Verification) is a novel stateful 
+  cryptographic system that integrates physical entropy generation, 
+  multi-clock state management with coprime prime periods, stream 
+  cipher encryption, and message authentication without relying on 
+  external hash functions or modular addition operations.
+keywords:
+  - cryptography
+  - entropy
+  - stateful-encryption
+  - stream-cipher
+  - prime-numbers
+  - physical-entropy
+  - post-quantum
+license: AGPL-3.0
+version: "9.1"
+date-released: "2025-11-26"
+references:
+  - type: article
+    authors:
+      - family-names: "Bastos"
+        given-names: "Carlos Alberto Terencio de"
+    title: "TAV Clock Cryptography: A Novel Approach to Stateful Encryption Using Prime-Period Transactional Clocks"
+    year: 2025
+    notes: "Preprint available on request"
+preferred-citation:
+  type: software
+  authors:
+    - family-names: "Bastos"
+      given-names: "Carlos Alberto Terencio de"
+  title: "TAV Clock Cryptography: Stateful Encryption with Prime-Period Transactional Clocks"
+  version: "9.1"
+  year: 2025
+  url: "https://github.com/carlostbastos/tav-crypto"
