@@ -1,0 +1,105 @@
+# TAV Commercial License
+
+## Summary
+
+TAV is dual-licensed:
+
+1. **Open Source**: AGPL-3.0 (free, requires derivative works to be open source)
+2. **Commercial**: Free until may 2027, then paid license available
+
+---
+
+## Commercial Grace Period
+
+### Free Commercial Use Until November 30, 2026
+
+Any individual, company, or organization may use TAV for commercial purposes **without charge and without AGPL obligations** until **November 30, 2026**, subject to the following conditions:
+
+#### Conditions
+
+1. **Attribution Required**: You must include the following notice in your product documentation or about page:
+   > "This product uses TAV Clock Cryptography by Carlos Alberto Terencio de Bastos"
+
+2. **No Warranty**: TAV is provided AS-IS with no warranty. The author is not liable for any damages arising from its use.
+
+3. **Security Disclaimer**: You must inform your users that TAV is experimental and has not been professionally audited.
+
+4. **Feedback Encouraged**: While not required, we appreciate bug reports, security findings, and general feedback.
+
+#### What You Can Do (Until Nov 2026)
+
+- ✅ Use TAV in commercial products
+- ✅ Use TAV in proprietary (closed-source) software
+- ✅ Modify TAV for your needs without publishing changes
+- ✅ Distribute products containing TAV
+- ✅ Use TAV in SaaS applications
+- ✅ Use TAV internally in your organization
+
+#### What You Cannot Do
+
+- ❌ Remove or hide the attribution notice
+- ❌ Claim you created TAV
+- ❌ Sue the author for any reason related to TAV
+- ❌ Use TAV in weapons systems or surveillance tools designed to violate human rights
+
+---
+
+## After may 30, 2027
+
+After the grace period ends, commercial users have two options:
+
+### Option 1: Comply with AGPL-3.0
+
+Continue using TAV under AGPL-3.0 terms, which requires:
+- Publishing your source code if you distribute TAV
+- Licensing derivative works under AGPL-3.0
+- Providing source code to users of network services using TAV
+
+### Option 2: Commercial License
+
+Contact the author for a commercial license that allows:
+- Proprietary (closed-source) use
+- No source code disclosure requirements
+- Custom support arrangements
+- Indemnification options
+
+**Contact**: caterencio@yahoo.com.br; https://github.com/carlostbastos/
+
+---
+
+## License Grant
+
+This Commercial License Grant is effective from **November 26, 2025** and expires on **May 30, 2027** at 23:59:59 UTC.
+
+By using TAV commercially, you agree to these terms.
+
+---
+
+## FAQ
+
+### Q: Can I start a company using TAV today?
+**A**: Yes, you can use TAV commercially for free until November 2026.
+
+### Q: Do I need to open-source my code during the grace period?
+**A**: No, during the grace period you can keep your code proprietary.
+
+### Q: What happens to products shipped before May 2027?
+**A**: Products shipped during the grace period can continue to operate. New versions or updates after November 2026 would need AGPL compliance or a commercial license.
+
+### Q: Can I get a commercial license before May 2027?
+**A**: Contact the author if you want early access to commercial licensing terms.
+
+### Q: Is TAV safe for production use?
+**A**: No. TAV is experimental and has not been audited. Use at your own risk.
+
+---
+
+## Contact
+
+**Carlos Alberto Terencio de Bastos**
+- Email: caterencio@yahoo.com.br
+- GitHub: https://github.com/carlostbastos/
+
+---
+
+*This commercial license is valid alongside the AGPL-3.0 license included in this repository.*
