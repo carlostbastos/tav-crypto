@@ -1,0 +1,36 @@
+[package]
+name = "tav-crypto"
+version = "9.1.0"
+edition = "2021"
+authors = ["TAV Contributors"]
+description = "TAV Clock Cryptography - Physics-based cryptographic system"
+license = "MIT"
+repository = "https://github.com/tav-crypto/tav-rust"
+keywords = ["cryptography", "encryption", "post-quantum", "physics-based"]
+categories = ["cryptography", "no-std"]
+
+[lib]
+name = "tav_crypto"
+crate-type = ["cdylib", "rlib"]
+
+[features]
+default = ["std"]
+std = []
+wasm = ["wasm-bindgen", "js-sys", "web-sys"]
+
+[dependencies]
+# Para WASM bindings (opcional)
+wasm-bindgen = { version = "0.2", optional = true }
+js-sys = { version = "0.3", optional = true }
+web-sys = { version = "0.3", optional = true, features = ["Performance", "Window"] }
+
+[dev-dependencies]
+criterion = "0.5"
+
+[[bench]]
+name = "benchmarks"
+harness = false
+
+[profile.release]
+opt-level = 3
+lto = true
