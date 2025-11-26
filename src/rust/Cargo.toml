@@ -1,13 +1,8 @@
 [package]
-name = "tav-crypto"
+name = "TAV Clock Cryptography v9.1"
 version = "9.1.0"
-edition = "2021"
-authors = ["TAV Contributors"]
-description = "TAV Clock Cryptography - Physics-based cryptographic system"
-license = "MIT"
-repository = "https://github.com/tav-crypto/tav-rust"
-keywords = ["cryptography", "encryption", "post-quantum", "physics-based"]
-categories = ["cryptography", "no-std"]
+Copyright = (C) 2025 Carlos Alberto Terencio de Bastos
+License = AGPL-3.0 - https://github.com/caterencio/tav-crypto
 
 [lib]
 name = "tav_crypto"
