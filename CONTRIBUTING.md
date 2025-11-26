@@ -45,6 +45,23 @@ The most valuable contribution is independent security analysis:
 - **Code review** - Review pull requests
 - **Discussion** - Participate in design discussions
 
+## 💖 Support the Project
+
+TAV is developed independently. If you find it useful:
+
+[![Sponsor](https://img.shields.io/badge/Sponsor-PayPal-blue.svg)](https://www.paypal.com/donate?hosted_button_id=Y4PXMSR7QG4CN)
+
+**Why donate?**
+- Fund independent security audits
+- Support continued development
+- Enable new implementations (Python, Go, etc.)
+- Cover infrastructure costs
+
+**How donations are used:**
+- 40% - Security audit fund
+- 40% - Development time
+- 20% - Infrastructure and documentation
+
 ---
 
 ## 📋 Contribution Process
