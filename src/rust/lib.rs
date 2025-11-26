@@ -1,6 +1,7 @@
 //! # TAV Clock Cryptography V9.1
 //! 
-//! Sistema criptográfico baseado em física de processador.
+//! Copyright (C) 2025 Carlos Alberto Terencio de Bastos
+//! License: AGPL-3.0 - https://github.com/caterencio/tav-crypto
 //! 
 //! ## Características
 //! 
