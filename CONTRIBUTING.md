@@ -49,7 +49,7 @@ The most valuable contribution is independent security analysis:
 
 TAV is developed independently. If you find it useful:
 
-[![Sponsor](https://img.shields.io/badge/Sponsor-PayPal-blue.svg)](https://www.paypal.com/donate?hosted_button_id=Y4PXMSR7QG4CN)
+[![Sponsor](https://img.shields.io/badge/Sponsor-PayPal-blue.svg)](https://www.paypal.com/donate/?hosted_button_id=S6KMBHT8PWSC2)
 
 **Why donate?**
 - Fund independent security audits
