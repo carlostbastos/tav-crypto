@@ -594,6 +594,7 @@ Every 10,000 transactions:
 tav-crypto/
 ├── README.md
 ├── tav_crypto.py
+├── TAV_PAPER_V3_EN.pdf        # ZENODO DOI https://doi.org/10.5281/zenodo.17753449
 ├── LICENSE                    # AGPL-3.0
 ├── COMMERCIAL_LICENSE.md      # Commercial terms
 ├── CITATION.cff               # How to cite
