@@ -1,25 +1,24 @@
 /*
- * TAV Clock Cryptography v9.1
+ * TAV Clock Cryptography v0.9
  * Copyright (C) 2025 Carlos Alberto Terencio de Bastos
- * License: AGPL-3.0 - https://github.com/caterencio/tav-crypto
- */
-/*
- * TAV CLOCK CRYPTOGRAPHY V9.1 - ARDUINO/ESP32
+ * License: AGPL-3.0 - https://github.com/carlostbastos/tav-crypto
+ *
+ * TAV CLOCK CRYPTOGRAPHY v0.9 - ARDUINO/ESP32
  * ============================================
  * 
- * Versão otimizada para microcontroladores:
- * - Zero alocação dinâmica (no malloc)
- * - Tamanhos fixos em tempo de compilação
- * - Mínimo uso de RAM
- * - Usa timer do hardware para entropia
+ * Optimized version for microcontrollers:
+ * - Zero dynamic allocation (no malloc)
+ * - Fixed sizes at compile time
+ * - Minimal RAM usage
+ * - Uses hardware timer for entropy
  * 
- * Suportado:
+ * Supported platforms:
  * - Arduino (AVR, ARM)
  * - ESP32/ESP8266
  * - STM32
- * - Qualquer plataforma com timer de alta resolução
+ * - Any platform with high-resolution timer
  * 
- * Uso de memória (aprox):
+ * Memory usage (approx):
  * - IoT: ~200 bytes RAM
  * - Consumer: ~300 bytes RAM
  * - Enterprise: ~400 bytes RAM
@@ -37,20 +36,20 @@ extern "C" {
 #endif
 
 /* ============================================================================
- * CONFIGURAÇÃO - Ajuste para sua plataforma
+ * CONFIGURATION - Adjust for your platform
  * ============================================================================ */
 
-/* Nível de segurança (escolha UM) */
+/* Security levels (choose ONE) */
 #define TAV_LEVEL_IOT         1
 #define TAV_LEVEL_CONSUMER    2
 #define TAV_LEVEL_ENTERPRISE  3
 
-/* Define o nível padrão */
+/* Define default level */
 #ifndef TAV_SECURITY_LEVEL
 #define TAV_SECURITY_LEVEL TAV_LEVEL_CONSUMER
 #endif
 
-/* Configuração baseada no nível */
+/* Configuration based on level */
 #if TAV_SECURITY_LEVEL == TAV_LEVEL_IOT
     #define TAV_KEY_BYTES       16
     #define TAV_MAC_BYTES       8
@@ -80,12 +79,13 @@ extern "C" {
     #define TAV_N_BOXES         4
 #endif
 
+#define TAV_VERSION         "0.9"
 #define TAV_POOL_SIZE       32
 #define TAV_OVERHEAD        (TAV_NONCE_BYTES + TAV_MAC_BYTES + 8)
 #define TAV_HASH_SIZE       32
 
 /* ============================================================================
- * CONSTANTES (em PROGMEM para AVR)
+ * CONSTANTS (in PROGMEM for AVR)
  * ============================================================================ */
 
 #ifdef __AVR__
@@ -111,7 +111,7 @@ static const uint8_t TAV_CONST_OR[32] TAV_CONST = {
     0x19, 0x32, 0x64, 0x06, 0x0C, 0x19, 0x33, 0x66
 };
 
-/* Primos compactos (apenas valores, não índices) */
+/* Compact primes (values only) */
 static const uint16_t TAV_PRIMES_1[16] TAV_CONST = {
     11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71
 };
@@ -126,7 +126,7 @@ static const uint16_t TAV_PRIMES_4[16] TAV_CONST = {
 };
 
 /* ============================================================================
- * ESTRUTURAS (tamanho fixo)
+ * STRUCTURES (fixed size)
  * ============================================================================ */
 
 typedef struct {
@@ -154,7 +154,7 @@ typedef struct {
     uint8_t initialized;
 } tav_ctx_t;
 
-/* Assinatura hash-chain (compacta) */
+/* Hash-chain signature (compact) */
 typedef struct {
     uint8_t public_key[TAV_HASH_SIZE];
     uint8_t private_seed[TAV_HASH_SIZE];
@@ -162,7 +162,7 @@ typedef struct {
     uint16_t chain_length;
 } tav_sign_t;
 
-/* Resultados */
+/* Results */
 typedef enum {
     TAV_OK = 0,
     TAV_ERROR_MAC = 1,
@@ -171,12 +171,12 @@ typedef enum {
 } tav_result_t;
 
 /* ============================================================================
- * FUNÇÕES DE PLATAFORMA - IMPLEMENTE PARA SUA PLATAFORMA
+ * PLATFORM FUNCTIONS - IMPLEMENT FOR YOUR PLATFORM
  * ============================================================================ */
 
 /* 
- * Retorna microssegundos desde boot.
- * Implemente para sua plataforma:
+ * Returns microseconds since boot.
+ * Implement for your platform:
  * 
  * Arduino: return micros();
  * ESP32: return esp_timer_get_time();
@@ -184,7 +184,7 @@ typedef enum {
  */
 extern uint32_t tav_platform_micros(void);
 
-/* Implementação padrão para Arduino */
+/* Default implementation for Arduino */
 #ifdef ARDUINO
 #include <Arduino.h>
 static inline uint32_t tav_platform_micros(void) {
@@ -192,7 +192,7 @@ static inline uint32_t tav_platform_micros(void) {
 }
 #endif
 
-/* Implementação para ESP32 */
+/* Implementation for ESP32 */
 #ifdef ESP32
 #include "esp_timer.h"
 static inline uint32_t tav_platform_micros(void) {
@@ -201,7 +201,7 @@ static inline uint32_t tav_platform_micros(void) {
 #endif
 
 /* ============================================================================
- * FUNÇÕES INLINE
+ * INLINE FUNCTIONS
  * ============================================================================ */
 
 static inline uint8_t tav_rot_left(uint8_t b, uint8_t n) {
@@ -235,7 +235,7 @@ static void tav_mixer_round(uint8_t* data, uint8_t round) {
         f_out[i] = x;
     }
     
-    /* Novo R = L XOR F(R) */
+    /* New R = L XOR F(R) */
     uint8_t new_r[TAV_POOL_SIZE / 2];
     for (uint8_t i = 0; i < half; i++) {
         new_r[i] = data[i] ^ f_out[i];
@@ -306,12 +306,12 @@ static void tav_mac_calc(const uint8_t* key, const uint8_t* data, uint16_t len,
                          uint8_t* out) {
     uint8_t state[32];
     
-    /* Init com chave */
+    /* Init with key */
     for (uint8_t i = 0; i < 32; i++) {
         state[i] = key[i % TAV_KEY_BYTES];
     }
     
-    /* Processa dados */
+    /* Process data */
     uint16_t offset = 0;
     while (offset < len) {
         uint8_t chunk = (len - offset < 32) ? (len - offset) : 32;
@@ -324,7 +324,7 @@ static void tav_mac_calc(const uint8_t* key, const uint8_t* data, uint16_t len,
         offset += chunk;
     }
     
-    /* Finaliza com tamanho */
+    /* Finalize with length */
     state[0] ^= (len >> 8) & 0xFF;
     state[1] ^= len & 0xFF;
     
@@ -341,7 +341,7 @@ static void tav_mac_calc(const uint8_t* key, const uint8_t* data, uint16_t len,
 
 static const uint8_t TAV_HASH_KEY[32] TAV_CONST = {
     0x54, 0x41, 0x56, 0x2D, 0x48, 0x41, 0x53, 0x48,
-    0x56, 0x39, 0x2E, 0x31, 0x00, 0x00, 0x00, 0x00,
+    0x56, 0x30, 0x2E, 0x39, 0x00, 0x00, 0x00, 0x00,
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
@@ -350,13 +350,13 @@ void tav_hash(const uint8_t* data, uint16_t len, uint8_t* out) {
     uint8_t state[32];
     uint8_t key[32];
     
-    /* Copia chave (de PROGMEM se AVR) */
+    /* Copy key (from PROGMEM if AVR) */
     for (uint8_t i = 0; i < 32; i++) {
         key[i] = TAV_READ_CONST(&TAV_HASH_KEY[i]);
         state[i] = key[i];
     }
     
-    /* Processa */
+    /* Process */
     uint16_t offset = 0;
     while (offset < len) {
         uint8_t chunk = (len - offset < 32) ? (len - offset) : 32;
@@ -369,7 +369,7 @@ void tav_hash(const uint8_t* data, uint16_t len, uint8_t* out) {
         offset += chunk;
     }
     
-    /* Finaliza */
+    /* Finalize */
     state[0] ^= (len >> 8) & 0xFF;
     state[1] ^= len & 0xFF;
     
@@ -381,7 +381,7 @@ void tav_hash(const uint8_t* data, uint16_t len, uint8_t* out) {
 }
 
 /* ============================================================================
- * ENTROPIA
+ * ENTROPY
  * ============================================================================ */
 
 static uint32_t tav_collect_timing(tav_ctx_t* ctx) {
@@ -438,7 +438,7 @@ static void tav_generate_nonce(tav_ctx_t* ctx, uint8_t* out) {
 }
 
 /* ============================================================================
- * PRIMOS
+ * PRIMES
  * ============================================================================ */
 
 static uint16_t tav_get_prime(uint8_t box, uint8_t index) {
@@ -459,7 +459,7 @@ static uint16_t tav_get_prime(uint8_t box, uint8_t index) {
 }
 
 /* ============================================================================
- * DERIVAÇÃO DE CHAVE
+ * KEY DERIVATION
  * ============================================================================ */
 
 static void tav_derive_key(tav_ctx_t* ctx, uint8_t* key) {
@@ -475,7 +475,7 @@ static void tav_derive_key(tav_ctx_t* ctx, uint8_t* key) {
         key[i] = ctx->master_entropy[(offset + i) % TAV_MASTER_SIZE];
     }
     
-    /* Mistura primos */
+    /* Mix primes */
     for (uint8_t b = 0; b < TAV_N_BOXES; b++) {
         uint16_t prime = tav_get_prime(b, ctx->boxes.index[b]);
         key[(b * 2) % TAV_KEY_BYTES] ^= (prime >> 8) & 0xFF;
@@ -513,7 +513,7 @@ void tav_tick(tav_ctx_t* ctx, uint8_t n) {
                 ctx->clocks.tick_count[c]++;
                 ctx->clocks.tx_count[c] = 0;
                 
-                /* Avança caixas */
+                /* Advance boxes */
                 if (c < TAV_N_BOXES) {
                     ctx->boxes.index[c] = (ctx->boxes.index[c] + 1) & 15;
                 }
@@ -523,26 +523,26 @@ void tav_tick(tav_ctx_t* ctx, uint8_t n) {
 }
 
 /* ============================================================================
- * API PRINCIPAL
+ * MAIN API
  * ============================================================================ */
 
 tav_result_t tav_init(tav_ctx_t* ctx, const uint8_t* seed, uint8_t seed_len) {
     memset(ctx, 0, sizeof(tav_ctx_t));
     
-    /* Calibra */
+    /* Calibrate */
     for (uint8_t i = 0; i < 50; i++) {
         uint32_t t = tav_collect_xor(ctx);
         tav_mixer_update(&ctx->mixer, t);
     }
     
-    /* Normaliza seed */
+    /* Normalize seed */
     uint8_t seed_norm[TAV_MASTER_SIZE];
     memset(seed_norm, 0, TAV_MASTER_SIZE);
     for (uint8_t i = 0; i < seed_len; i++) {
         seed_norm[i % TAV_MASTER_SIZE] ^= seed[i];
     }
     
-    /* Gera entropia */
+    /* Generate entropy */
     for (uint8_t i = 0; i < TAV_MASTER_SIZE; i++) {
         uint32_t t = tav_collect_xor(ctx);
         tav_mixer_update(&ctx->mixer, t);
@@ -551,7 +551,7 @@ tav_result_t tav_init(tav_ctx_t* ctx, const uint8_t* seed, uint8_t seed_len) {
     uint8_t clock_entropy[TAV_MASTER_SIZE];
     tav_mixer_extract(&ctx->mixer, clock_entropy, TAV_MASTER_SIZE);
     
-    /* Combina */
+    /* Combine */
     for (uint8_t i = 0; i < TAV_MASTER_SIZE; i++) {
         ctx->master_entropy[i] = seed_norm[i] ^ clock_entropy[i];
     }
@@ -568,7 +568,7 @@ tav_result_t tav_encrypt(tav_ctx_t* ctx,
     
     *ct_len = TAV_OVERHEAD + pt_len;
     
-    /* Deriva chave */
+    /* Derive key */
     uint8_t key[TAV_KEY_BYTES];
     tav_derive_key(ctx, key);
     
@@ -578,7 +578,7 @@ tav_result_t tav_encrypt(tav_ctx_t* ctx,
     
     /* Metadata */
     uint8_t metadata[8];
-    metadata[0] = 0x91;
+    metadata[0] = 0x09; /* v0.9 */
     metadata[1] = TAV_SECURITY_LEVEL;
     metadata[2] = (ctx->tx_global >> 24) & 0xFF;
     metadata[3] = (ctx->tx_global >> 16) & 0xFF;
@@ -587,23 +587,23 @@ tav_result_t tav_encrypt(tav_ctx_t* ctx,
     metadata[6] = 0;
     metadata[7] = 0;
     
-    /* Posições */
+    /* Positions */
     uint8_t* enc_out = ciphertext + TAV_NONCE_BYTES + TAV_MAC_BYTES;
     
-    /* Cifra metadata */
+    /* Encrypt metadata */
     uint8_t ks[8];
     tav_keystream(key, nonce, ks, 8);
     for (uint8_t i = 0; i < 8; i++) {
         enc_out[i] = metadata[i] ^ ks[i];
     }
     
-    /* Cifra plaintext */
+    /* Encrypt plaintext */
     for (uint16_t offset = 0; offset < pt_len; offset += 32) {
         uint8_t chunk = (pt_len - offset < 32) ? (pt_len - offset) : 32;
         uint8_t ks_chunk[32];
         tav_keystream(key, nonce, ks_chunk, chunk);
         
-        /* Ajusta offset do keystream */
+        /* Adjust keystream offset */
         for (uint8_t i = 0; i < chunk; i++) {
             ks_chunk[i] ^= ((offset + 8 + i) & 0xFF);
         }
@@ -614,14 +614,14 @@ tav_result_t tav_encrypt(tav_ctx_t* ctx,
     }
     
     /* MAC */
-    uint8_t mac_input[TAV_NONCE_BYTES + 8 + 256]; /* Buffer estático */
+    uint8_t mac_input[TAV_NONCE_BYTES + 8 + 256]; /* Static buffer */
     memcpy(mac_input, nonce, TAV_NONCE_BYTES);
     memcpy(mac_input + TAV_NONCE_BYTES, enc_out, 8 + pt_len);
     
     uint8_t mac[TAV_MAC_BYTES];
     tav_mac_calc(key, mac_input, TAV_NONCE_BYTES + 8 + pt_len, mac);
     
-    /* Monta output */
+    /* Build output */
     memcpy(ciphertext, nonce, TAV_NONCE_BYTES);
     memcpy(ciphertext + TAV_NONCE_BYTES, mac, TAV_MAC_BYTES);
     
@@ -643,11 +643,11 @@ tav_result_t tav_decrypt(tav_ctx_t* ctx,
     const uint8_t* encrypted = ciphertext + TAV_NONCE_BYTES + TAV_MAC_BYTES;
     uint16_t enc_len = ct_len - TAV_NONCE_BYTES - TAV_MAC_BYTES;
     
-    /* Deriva chave */
+    /* Derive key */
     uint8_t key[TAV_KEY_BYTES];
     tav_derive_key(ctx, key);
     
-    /* Verifica MAC */
+    /* Verify MAC */
     uint8_t mac_input[TAV_NONCE_BYTES + 8 + 256];
     memcpy(mac_input, nonce, TAV_NONCE_BYTES);
     memcpy(mac_input + TAV_NONCE_BYTES, encrypted, enc_len);
@@ -662,11 +662,11 @@ tav_result_t tav_decrypt(tav_ctx_t* ctx,
     }
     if (diff != 0) return TAV_ERROR_MAC;
     
-    /* Decifra */
+    /* Decrypt */
     uint8_t ks[8];
     tav_keystream(key, nonce, ks, 8);
     
-    /* Pula metadata */
+    /* Skip metadata */
     *pt_len = enc_len - 8;
     
     for (uint16_t offset = 0; offset < *pt_len; offset += 32) {
@@ -687,7 +687,7 @@ tav_result_t tav_decrypt(tav_ctx_t* ctx,
 }
 
 /* ============================================================================
- * ASSINATURA HASH-CHAIN (versão compacta)
+ * HASH-CHAIN SIGNATURE (compact version)
  * ============================================================================ */
 
 tav_result_t tav_sign_init(tav_sign_t* s, const uint8_t* seed, uint8_t seed_len,
@@ -697,7 +697,7 @@ tav_result_t tav_sign_init(tav_sign_t* s, const uint8_t* seed, uint8_t seed_len,
     
     tav_hash(seed, seed_len, s->private_seed);
     
-    /* Gera public key */
+    /* Generate public key */
     uint8_t current[TAV_HASH_SIZE];
     memcpy(current, s->private_seed, TAV_HASH_SIZE);
     
@@ -715,7 +715,7 @@ tav_result_t tav_sign_sign(tav_sign_t* s, const uint8_t* msg, uint16_t msg_len,
                            uint8_t* sig, uint8_t* sig_len) {
     if (s->current_index >= s->chain_length) return TAV_ERROR_CHAIN;
     
-    /* Calcula reveal */
+    /* Calculate reveal */
     uint16_t steps = s->chain_length - s->current_index - 1;
     uint8_t reveal[TAV_HASH_SIZE];
     memcpy(reveal, s->private_seed, TAV_HASH_SIZE);
@@ -734,7 +734,7 @@ tav_result_t tav_sign_sign(tav_sign_t* s, const uint8_t* msg, uint16_t msg_len,
     uint8_t mac[TAV_HASH_SIZE];
     tav_hash(mac_input, msg_len + TAV_HASH_SIZE, mac);
     
-    /* Assinatura */
+    /* Signature */
     sig[0] = (s->current_index >> 8) & 0xFF;
     sig[1] = s->current_index & 0xFF;
     memcpy(sig + 2, reveal, TAV_HASH_SIZE);
@@ -755,7 +755,7 @@ tav_result_t tav_sign_verify(const uint8_t* pub_key,
     const uint8_t* reveal = sig + 2;
     const uint8_t* mac = sig + 2 + TAV_HASH_SIZE;
     
-    /* Verifica MAC */
+    /* Verify MAC */
     uint8_t mac_input[256 + TAV_HASH_SIZE];
     memcpy(mac_input, msg, msg_len);
     memcpy(mac_input + msg_len, reveal, TAV_HASH_SIZE);
@@ -769,7 +769,7 @@ tav_result_t tav_sign_verify(const uint8_t* pub_key,
     }
     if (diff != 0) return TAV_ERROR_MAC;
     
-    /* Verifica chain */
+    /* Verify chain */
     uint8_t current[TAV_HASH_SIZE];
     memcpy(current, reveal, TAV_HASH_SIZE);
     
