@@ -1,6 +1,6 @@
 [package]
-name = "TAV Clock Cryptography v9.1"
-version = "9.1.0"
+name = "TAV Clock Cryptography v0.9"
+version = "0.9.0"
 Copyright = (C) 2025 Carlos Alberto Terencio de Bastos
 License = AGPL-3.0 - https://github.com/caterencio/tav-crypto
 
