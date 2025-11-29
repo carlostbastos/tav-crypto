@@ -1,21 +1,31 @@
 /*
- * TAV CBA - Exemplo para Arduino/ESP32
- * =====================================
- * 
- * Este exemplo demonstra:
- * 1. Sensor IoT emitindo dados autenticados
- * 2. Gateway recebendo e verificando dados
- * 3. Delegação de capabilities
- * 4. Comunicação segura entre dispositivos
- * 
- * Plataformas testadas:
- * - ESP32 DevKit
- * - ESP8266 NodeMCU
- * - Arduino Mega 2560
- * 
- * Conexões (para teste com Serial):
- * - Apenas USB para debug
- * - Para comunicação real, usar WiFi/BLE/LoRa
+  * TAV Clock Cryptography v0.9
+ * Copyright (C) 2025 Carlos Alberto Terencio de Bastos
+ * License: AGPL-3.0 - https://github.com/carlostbastos/tav-crypto
+ 
+ * EXAMPLE - TAV CAPABILITY-BASED AUTHENTICATION (CBA) - Arduino/ESP32
+ * ===============================================================
+ 
+ * Ultra-optimized version for microcontrollers:
+ * - Zero dynamic allocation (no malloc)
+ * - Fixed sizes at compile time
+ * - Minimal RAM usage (~400-600 bytes)
+ * - Uses hardware timer for entropy
+
+ * Supported platforms:
+ * - Arduino (AVR, ARM)
+ * - ESP32/ESP8266
+ * - STM32
+ * - Raspberry Pi Pico
+ 
+ * Approximate memory usage:
+ * - CBA context: ~300 bytes
+ * - Capability: ~150 bytes
+ * - Proof: ~120 bytes
+
+ * License: AGPL-3.0 | Free commercial use until May 2027
+ * Date: November 2025
+
  */
 
 #include "tav_cba_iot.h"
