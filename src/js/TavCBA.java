@@ -1,14 +1,15 @@
 /*
- * TAV CAPABILITY-BASED AUTHENTICATION (CBA) V1.0 - Java Implementation
+ * TAV Clock Cryptography v0.9
+ * Copyright (C) 2025 Carlos Alberto Terencio de Bastos
+ * License: AGPL-3.0 - https://github.com/carlostbastos/tav-crypto
  * =====================================================================
  * 
- * Protocolo híbrido combinando:
- * 1. Hash-Chain: Identidade forte (uso limitado)
- * 2. Commitment-Reveal: Sessões ilimitadas
- * 3. Capabilities: Controle de acesso granular
- * 
- * Licença: AGPL-3.0 | Uso comercial gratuito até maio de 2027
- * Data: Novembro 2025
+ * Hybrid protocol combining:
+ * 1. Hash-Chain: Strong identity (limited use)
+ * 2. Commitment-Reveal: Unlimited sessions
+ * 3. Capabilities: Granular access control
+ * License: AGPL-3.0 | Free commercial use until May 2027
+ * Date: November 2025
  */
 
 package com.tav.cba;
