@@ -1,19 +1,23 @@
 /*
- * TAV CAPABILITY-BASED AUTHENTICATION (CBA) V1.0 - C Implementation
+ * TAV Clock Cryptography v0.9
+ * Copyright (C) 2025 Carlos Alberto Terencio de Bastos
+ * License: AGPL-3.0 - https://github.com/carlostbastos/tav-crypto
+ 
+ * TAV CAPABILITY-BASED AUTHENTICATION - C Implementation
  * ==================================================================
  * 
- * Protocolo híbrido combinando:
- * 1. Hash-Chain: Identidade forte (uso limitado)
- * 2. Commitment-Reveal: Sessões ilimitadas
- * 3. Capabilities: Controle de acesso granular
- * 
- * Características:
- * - Zero alocação dinâmica em operações críticas
+ * Hybrid protocol combining:
+ 
+ * 1. Hash-Chain: Strong identity (limited use)
+ * 2. Commitment-Reveal: Unlimited sessions
+ * 3. Capabilities: Granular access control
+ 
+ * Features:
+ 
+ * - Zero dynamic allocation in critical operations
  * - Constant-time comparisons
- * - Tamanhos fixos em compile-time
- * 
- * Licença: AGPL-3.0 | Uso comercial gratuito até maio de 2027
- * Data: Novembro 2025
+ * - Fixed sizes at compile time
+ 
  */
 
 #ifndef TAV_CBA_H
