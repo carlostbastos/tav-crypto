@@ -3,14 +3,8 @@
 //! Copyright (C) 2025 Carlos Alberto Terencio de Bastos
 //! License: AGPL-3.0 - https://github.com/carlostbastos/tav-crypto
 //! 
-//! ## Características
 //! 
-//! - Entropia baseada em jitter físico (timing)
-//! - Operações: apenas XOR, AND, OR, ROT (portas lógicas)
-//! - Zero dependência de algoritmos matemáticos
-//! - Sistema "vivo" que evolui com uso
-//! 
-//! ## Exemplo
+//! ## Example
 //! 
 //! ```rust
 //! use tav_crypto::{Tav, SecurityLevel};
