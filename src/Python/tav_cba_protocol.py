@@ -1,24 +1,28 @@
 """
-TAV CAPABILITY-BASED AUTHENTICATION (CBA) V1.0
+ TAV Clock Cryptography v0.9
+ Copyright (C) 2025 Carlos Alberto Terencio de Bastos
+ License: AGPL-3.0 - https://github.com/carlostbastos/tav-crypto
+
 ===============================================
 
-Protocolo híbrido que combina:
-1. Hash-Chain: Estabelece IDENTIDADE (quem você é)
-2. Commitment-Reveal: Estabelece SESSÃO (estado atual)
-3. Capabilities: Define PERMISSÕES (o que pode fazer)
+Hybrid protocol that combines:
+1. Hash-Chain: Establishes IDENTITY (who you are)
+2. Commitment-Reveal: Establishes SESSION (current state)
+3. Capabilities: Define PERMISSIONS (what you can do)
 
-Resolve limitações de ambos protocolos originais:
-- Hash-Chain: limitado em assinaturas → CBA usa para identidade raiz apenas
-- Commitment-Reveal: requer sync → CBA inclui prova de cadeia para bootstrap
+Solves the limitations of both original protocols:
 
-Propriedades únicas:
-- Delegação segura de permissões
-- Revogação instantânea
-- Acesso granular por recurso/operação
-- Verificação offline possível
+- Hash-Chain: limited in signatures → CBA uses it for root identity only
+- Commitment-Reveal: requires synchronization → CBA includes proof-of-chain for bootstrapping
 
-Autor: Baseado no TAV V9.3 de Carlos Alberto Terencio de Bastos
-Data: Novembro 2025
+Unique properties:
+- Secure delegation of permissions
+- Instant revocation
+- Granular access by resource/operation
+- Offline verification possible
+
+Author: Carlos Alberto Terêncio de Bastos
+Data: November 2025
 """
 
 import os
