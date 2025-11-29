@@ -495,6 +495,116 @@ valid = tav.verify_commit(message, signature, public_commitment)
 - Based on TAV state evolution
 - Ideal for: routine authentication, API requests, session tokens
 
+
+### 🔑 Capability-Based Authorization (CBA)
+
+TAV CBA is a **third communication system** that extends TAV's cryptographic primitives into a complete authorization framework. While Hash-Chain and Commitment-Reveal provide signatures, CBA provides **fine-grained access control** with minimal overhead.
+
+#### The Problem CBA Solves
+
+Traditional authorization systems (OAuth2, JWT, X.509) were designed for web servers with abundant resources. IoT devices need:
+- Minimal memory footprint
+- Offline verification (no network round-trips)
+- Hierarchical delegation
+- Instant revocation
+
+#### How CBA Works
+```
+┌─────────────┐     Capability      ┌─────────────┐
+│   Issuer    │ ─────────────────► │   Holder    │
+│  (Gateway)  │   (150 bytes)      │  (Sensor)   │
+└─────────────┘                     └──────┬──────┘
+                                           │
+                                           │ Proof (83-151 bytes)
+                                           ▼
+                                    ┌─────────────┐
+                                    │  Verifier   │
+                                    │  (Gateway)  │
+                                    └─────────────┘
+```
+
+1. **Issuer** creates a capability granting specific permissions on specific resources
+2. **Holder** generates compact proofs when accessing resources
+3. **Verifier** validates proofs offline without network calls
+
+#### CBA Features
+
+| Feature | Description |
+|---------|-------------|
+| **10 Permissions** | READ, WRITE, DELETE, ENCRYPT, DECRYPT, SIGN, VERIFY, DELEGATE, REVOKE, ADMIN |
+| **Resource Scoping** | Capabilities bound to specific resources (e.g., `zone:living`, `sensor:temp`) |
+| **Hierarchical Delegation** | Gateway can delegate subset of permissions to sensors |
+| **Automatic Restriction** | Delegated capabilities cannot exceed parent permissions |
+| **Time-Bounded** | Capabilities expire automatically |
+| **Use-Limited** | Optional maximum use count |
+| **Instant Revocation** | Revoke without network propagation |
+
+#### Size Comparison
+
+| Protocol | Auth Token | Capability | Proof |
+|----------|------------|------------|-------|
+| **TAV CBA** | — | **~150 bytes** | **83-151 bytes** |
+| JWT | 300-800 bytes | — | — |
+| OAuth2 | 40-100 bytes | — | — |
+| X.509 | 1,000+ bytes | — | — |
+| ML-DSA-44 | — | — | 2,420 bytes |
+
+CBA proofs are **16-29x smaller** than ML-DSA signatures.
+
+#### Memory Footprint (IoT)
+
+| Component | Size |
+|-----------|------|
+| Full context | ~280 bytes |
+| Per capability | ~252 bytes |
+| Per proof | ~152 bytes |
+| **Total RAM** | **~400-600 bytes** |
+
+Compare to ML-DSA requiring ~10-15 KB RAM.
+
+#### Use Cases
+
+| Scenario | How CBA Helps |
+|----------|---------------|
+| **Smart Home** | Gateway delegates READ to sensors, WRITE to actuators |
+| **Industrial IoT** | Hierarchical access: Cloud → Hub → Sensor |
+| **Content Authenticity** | Prove who created content, when, with what permissions |
+| **Offline Devices** | Verify access without internet connectivity |
+| **Battery-Constrained** | Minimal computation for proof generation |
+
+#### Quick Example
+```python
+from tav_cba import CBAContext, CBA_PERM_READ, CBA_PERM_ENCRYPT
+
+# Gateway issues capability to sensor
+gateway = CBAContext("gateway-seed", chain_length=100)
+sensor = CBAContext("sensor-seed", chain_length=50)
+
+capability = gateway.issue_capability(
+    holder_public_key=sensor.public_key,
+    permissions=CBA_PERM_READ | CBA_PERM_ENCRYPT,
+    resources=["temp", "humidity"],
+    duration_seconds=3600,
+    max_uses=100
+)
+
+# Sensor generates proof when reading
+proof = sensor.generate_proof(capability, "READ", "temp")
+
+# Gateway verifies (offline, no network)
+is_valid = gateway.verify_proof(proof, capability)
+```
+
+#### Implementations Available
+
+| Language | File | Status |
+|----------|------|--------|
+| Python | `tav_cba_protocol.py` | ✅ Complete |
+| C | `tav_cba.h` + `tav_cba.c` | ✅ Complete |
+| C (IoT) | `tav_cba_iot.h` | ✅ Header-only, zero malloc |
+| Java | `TavCBA.java` | ✅ Complete |
+
+
 ---
 
 ## 🏗️ Architecture
