@@ -3,31 +3,6 @@ TAV Clock Cryptography v0.9
 Copyright (C) 2025 Carlos Alberto Terencio de Bastos
 License: AGPL-3.0 - https://github.com/carlostbastos/tav-crypto
 
-TAV CLOCK CRYPTOGRAPHY V9.3 - COM CHECKPOINT AUTOMATICO
-=========================================================
-
-Novidades sobre V9.2:
-1. Checkpoint automatico a cada 10.000 transacoes
-2. Checkpoint hardcoded (caminho fixo, oculto do usuario)
-3. Checkpoint criptografado pelo proprio TAV
-4. Restauracao automatica na inicializacao
-5. Deteccao de hardware diferente (aviso, nao bloqueio)
-
-Operacoes: apenas XOR, AND, OR, ROT (portas logicas)
-ZERO dependencia de algoritmos matematicos!
-
-Prime Boxes:
-- Box 1: 21 primes (2 digits: 11-97)
-- Box 2: 143 primes (3 digits: 101-997)
-- Box 3: 500 primes (4 digits: 1009-4993)
-- Box 4: 500 primes (5 digits: 10007-14759)
-- Box 5: 200 primes (7 digits: 1000003-1002583)
-- Box 6: 100 primes (9 digits: 100000007-100001819)
-- TOTAL: 1,464 primes
-
-Licenca: AGPL-3.0 | Uso comercial gratuito ate maio de 2027
-Data: Novembro 2025
-Autor: Carlos Alberto Terencio de Bastos
 """
 
 import os
