@@ -1,17 +1,17 @@
+//! TAV Clock Cryptography v0.9
+//! Copyright (C) 2025 Carlos Alberto Terencio de Bastos
+//! License: AGPL-3.0 - https://github.com/carlostbastos/tav-crypto
+//!
 //! # TAV CBA - Capability-Based Authorization
 //!
-//! Sistema de autorização baseado em capabilities para o TAV Clock Cryptography.
-//!
 //! ## Features
-//! - Identidade baseada em Hash-Chain (assinaturas de 66 bytes)
-//! - Sessões com Commitment-Reveal
-//! - Capabilities com 10 permissões granulares
-//! - Delegação hierárquica com restrições automáticas
-//! - Revogação instantânea
-//! - Provas compactas (83-151 bytes)
+//! - Hash-Chain based identity (66-byte signatures)
+//! - Sessions with Commitment-Reveal
+//! - Capabilities with 10 granular permissions
+//! - Hierarchical delegation with automatic restrictions
+//! - Instant revocation
+//! - Compact proofs (83-151 bytes)
 //!
-//! ## Licença
-//! AGPL-3.0 | Uso comercial gratuito até maio de 2027
 
 #![cfg_attr(not(feature = "std"), no_std)]
 
