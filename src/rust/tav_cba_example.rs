@@ -1,15 +1,18 @@
-//! # TAV CBA - Exemplo de Uso
+//! TAV Clock Cryptography v0.9
+//! Copyright (C) 2025 Carlos Alberto Terencio de Bastos
+//! License: AGPL-3.0 - https://github.com/carlostbastos/tav-crypto
 //!
-//! Demonstra os principais recursos do sistema CBA em Rust.
+//! # TAV CBA - Capability-Based Authorization - EXAMPLE
 //!
-//! ## Compilar e executar
+//!
+//! ## Compile and run
 //! ```bash
 //! rustc --edition 2021 tav_cba.rs --crate-type=lib -o libtav_cba.rlib
 //! rustc --edition 2021 tav_cba_example.rs --extern tav_cba=libtav_cba.rlib -o cba_demo
 //! ./cba_demo
 //! ```
 
-// Se compilar como arquivo único, inclua o módulo
+//! If compiling as a single file, include the module.
 #[path = "tav_cba.rs"]
 mod tav_cba;
 
