@@ -1,26 +1,31 @@
 /*
- * TAV CAPABILITY-BASED AUTHENTICATION (CBA) V1.0 - Arduino/ESP32
+ * TAV Clock Cryptography v0.9
+ * Copyright (C) 2025 Carlos Alberto Terencio de Bastos
+ * License: AGPL-3.0 - https://github.com/carlostbastos/tav-crypto
+ 
+ * TAV CAPABILITY-BASED AUTHENTICATION (CBA) - Arduino/ESP32
  * ===============================================================
- * 
- * Versão ultra-otimizada para microcontroladores:
- * - Zero alocação dinâmica (no malloc)
- * - Tamanhos fixos em compile-time
- * - Mínimo uso de RAM (~400-600 bytes)
- * - Usa timer do hardware para entropia
- * 
- * Plataformas suportadas:
+ 
+ * Ultra-optimized version for microcontrollers:
+ * - Zero dynamic allocation (no malloc)
+ * - Fixed sizes at compile time
+ * - Minimal RAM usage (~400-600 bytes)
+ * - Uses hardware timer for entropy
+
+ * Supported platforms:
  * - Arduino (AVR, ARM)
  * - ESP32/ESP8266
  * - STM32
  * - Raspberry Pi Pico
- * 
- * Uso de memória aproximado:
- * - Contexto CBA: ~300 bytes
+ 
+ * Approximate memory usage:
+ * - CBA context: ~300 bytes
  * - Capability: ~150 bytes
- * - Prova: ~120 bytes
- * 
- * Licença: AGPL-3.0 | Uso comercial gratuito até maio de 2027
- * Data: Novembro 2025
+ * - Proof: ~120 bytes
+
+ * License: AGPL-3.0 | Free commercial use until May 2027
+ * Date: November 2025
+
  */
 
 #ifndef TAV_CBA_IOT_H
